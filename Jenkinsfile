@@ -23,10 +23,9 @@ pipeline {
                 echo "=========== NODE VERSION ========"
                 sh 'node --version'
                 sh 'cat /etc/*-release'
-                sh "sudo apk update "
-                sh "sudo apk add --update sudo"
+                sh "apk add --update sudo"
                
-                sh "sudo apk add zip"
+                sh "apk add zip"
 
             }
         }
