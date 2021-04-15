@@ -2,34 +2,45 @@ def bucket = 'sbcleardbuckettest'
 def functionName = 'lambda-jenkins-test'
 def region = 'us-east-2'
 
-node('slaves'){
+pipeline {
+    agent any
     triggers {
         githubPush()
     }
-    stage('Checkout'){
-        checkout scm
-    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Example Build') {
+            steps {
+                echo sh(returnStdout: true, script: 'env')
+                sh "zip ${commitID()}.zip main"
+            
+            }
+        }
+        stage('Push') {
+            steps {
+                sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
+            
+            }
+        }
 
-    stage('Test'){
-	echo sh(returnStdout: true, script: 'env')
-    }
-
-    stage('Build'){
-	sh "cp node_modules main/"
-        sh "zip ${commitID()}.zip main"
-    }
-
-    stage('Push'){
-        sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
-    }
-
-    stage('Deploy'){
-        sh "aws lambda update-function-code --function-name ${functionName} \
+        stage('Deploy') {
+            steps {
+                sh "aws lambda update-function-code --function-name ${functionName} \
                 --s3-bucket ${bucket} \
                 --s3-key ${commitID()}.zip \
                 --region ${region}"
+            
+            }
+        }
+
     }
+
 }
+
 
 def commitID() {
     sh 'git rev-parse HEAD > .git/commitID'
