@@ -51,7 +51,7 @@ pipeline {
         stage('Push') {
             steps {
                 echo "=======Pushing to amazon S3====="
-                sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}"
+                sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket} --seccret-key=1234"
             
             }
         }
@@ -69,15 +69,5 @@ pipeline {
     }
 
 }
-
-
-def commitID() {
-    sh 'git rev-parse HEAD > .git/commitID'
-    def commitID = readFile('.git/commitID').trim()
-    sh 'rm .git/commitID'
-    commitID
-}
-
-
 
 
