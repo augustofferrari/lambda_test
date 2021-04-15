@@ -4,8 +4,8 @@ def region = 'us-east-2'
 
 pipeline {
 
-    agent {
-       label 'docker'
+   agent {
+        docker { image 'node:12-alpine' }
     }
 
     triggers {
