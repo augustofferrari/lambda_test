@@ -16,8 +16,8 @@ pipeline {
         stage('Example Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
-                sh "yum install zip"
                 sh "zip ${commitID()}.zip main"
+                echo "Zip file done"
             
             }
         }
