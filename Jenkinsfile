@@ -43,7 +43,7 @@ pipeline {
                 sh "ls -l"
                 sh "cp -R node_modules main/"
                 //sh "apk add zip"
-                sh "zip ${GIT_COMMIT}.zip main"
+                sh "zip -r ${GIT_COMMIT}.zip main"
                 echo "=======Zip file done====="
             
             }
