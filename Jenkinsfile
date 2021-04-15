@@ -1,4 +1,4 @@
-def bucket = 'sbcleardbuckettest/lambda'
+def bucket = 'sbcleardbuckettest'
 def functionName = 'lambda-jenkins-test'
 def region = 'us-east-2'
 
@@ -61,7 +61,7 @@ pipeline {
             steps {
                     withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
                         echo "=======Pushing to amazon S3====="
-                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}"
+                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}/lambda/"
                     }
             }
         }
