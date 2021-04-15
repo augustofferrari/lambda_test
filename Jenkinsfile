@@ -22,6 +22,7 @@ pipeline {
                 checkout scm
                 echo "=========== NODE VERSION ========"
                 sh 'node --version'
+                sh 'cat /etc/*-release'
                 sh "apt-get install zip"
 
             }
