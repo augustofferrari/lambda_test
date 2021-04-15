@@ -4,12 +4,11 @@ def region = 'us-east-2'
 
 pipeline {
 
-    triggers {
-        githubPush()
-    }
-
     agent {
         docker { image 'node:12-alpine' }
+    }
+    triggers {
+        githubPush()
     }
 
     stages {
