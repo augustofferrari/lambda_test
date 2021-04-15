@@ -48,11 +48,21 @@ pipeline {
             
             }
         }
+
+        //stage('Setting aws credentials'){
+            //steps{
+                //sh "aws configure set aws_access_key_id <yourAccessKey>"
+                //sh "aws configure set aws_secret_access_key <yourSecretKey>"
+
+            //}
+
+        //}
         stage('Push') {
             steps {
-                echo "=======Pushing to amazon S3====="
-                sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket} --seccret-key=1234"
-            
+                    withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
+                        echo "=======Pushing to amazon S3====="
+                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket} "
+                    }
             }
         }
 
