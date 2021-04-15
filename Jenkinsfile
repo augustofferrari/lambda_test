@@ -30,6 +30,9 @@ pipeline {
                
                 sh "apk add zip"
 
+                sh "apk add --no-cache python3 py3-pip"
+                sh "pip3 install --upgrade pip"
+                sh "pip3 install awscli"
             }
         }
         stage('Example Build') {
