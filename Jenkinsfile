@@ -27,12 +27,11 @@ pipeline {
         stage('Example Build') {
             steps {
                 echo "========== ENV VARIABLES"
-                sh "USER root"
                 sh 'env'  
                 sh "npm install"
                 sh "ls -l"
                 sh "cp -R node_modules main/"
-                sh "apk add zip"
+                //sh "apk add zip"
                 sh "zip ${GIT_COMMIT}.zip main"
                 echo "=======Zip file done====="
             
