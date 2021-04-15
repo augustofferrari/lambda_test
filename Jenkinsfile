@@ -49,14 +49,6 @@ pipeline {
             }
         }
 
-        //stage('Setting aws credentials'){
-            //steps{
-                //sh "aws configure set aws_access_key_id <yourAccessKey>"
-                //sh "aws configure set aws_secret_access_key <yourSecretKey>"
-
-            //}
-
-        //}
         stage('Push') {
             steps {
                     withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
@@ -68,11 +60,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
-                    sh "aws lambda update-function-code --function-name ${functionName} \
-                    --s3-bucket ${bucket}/lambda \
-                    --s3-key ${GIT_COMMIT}.zip \
-                    --region ${region}"
+                //withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
+                //    sh "aws lambda update-function-code --function-name ${functionName} \
+                //    --s3-bucket ${bucket}/lambda \
+                 //   --s3-key ${GIT_COMMIT}.zip \
+                  //  --region ${region}"
                 }
             }
         }
