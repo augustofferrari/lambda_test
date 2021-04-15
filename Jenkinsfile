@@ -3,21 +3,30 @@ def functionName = 'lambda-jenkins-test'
 def region = 'us-east-2'
 
 pipeline {
-    agent any
+
     triggers {
         githubPush()
     }
+
+    agent {
+        docker { image 'node:12-alpine' }
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo "=========== NODE VERSION ========"
+                sh 'node --version'
             }
         }
         stage('Example Build') {
             steps {
                 echo sh(returnStdout: true, script: 'env')
+                sh "npm install"
+                sh "cp node_modules main/"
                 sh "zip ${commitID()}.zip main"
-                echo "Zip file done"
+                echo "=======Zip file done====="
             
             }
         }
