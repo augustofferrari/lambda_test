@@ -64,7 +64,7 @@ pipeline {
                     sh "aws lambda update-function-code --function-name ${functionName} \
                     --s3-bucket ${bucket} \
                     --s3-key lambda/${GIT_COMMIT}.zip \
-                   --region ${region}"
+                    --region ${region}"
                 }
             }
         }
