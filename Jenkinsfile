@@ -22,6 +22,8 @@ pipeline {
                 checkout scm
                 echo "=========== NODE VERSION ========"
                 sh 'node --version'
+                sh "apt-get install zip"
+
             }
         }
         stage('Example Build') {
