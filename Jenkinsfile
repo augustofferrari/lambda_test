@@ -14,53 +14,54 @@ pipeline {
 
     stages {
         stage('Dockerized') {
-        agent {
-            docker {
-            reuseNode true // < -- the most important part
-            image 'node:12-alpine'
-            }
-        }
-
-        stages{
-            // Stages in this block will be executed inside of a gradle container
-            stage('Checkout') {
-                steps {
-                    checkout scm
-                    echo "=========== NODE VERSION ========"
-                    sh 'node --version'
+            agent {
+                docker {
+                reuseNode true // < -- the most important part
+                image 'node:12-alpine'
                 }
             }
 
-            stage('Example Build') {
-                steps {
-                    sh "ls -l"
-                    sh "pwd"
-                    sh "npm cache clean --force "
-                    sh "npm install"
-                    sh "cp node_modules main/"
-                    sh "zip ${commitID()}.zip main"
-                    echo "=======Zip file done====="
+            stages{
+                // Stages in this block will be executed inside of a gradle container
+                stage('Checkout') {
+                    steps {
+                        checkout scm
+                        echo "=========== NODE VERSION ========"
+                        sh 'node --version'
+                    }
+                }
+
+                stage('Example Build') {
+                    steps {
+                        sh "ls -l"
+                        sh "pwd"
+                        sh "npm cache clean --force "
+                        sh "npm install"
+                        sh "cp node_modules main/"
+                        sh "zip ${commitID()}.zip main"
+                        echo "=======Zip file done====="
+                        
+                    }
+                }
+                stage('Push') {
+                    steps {
+                        echo "=======Pushing to amazon S3====="
+                        sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
                     
+                    }
                 }
-            }
-            stage('Push') {
-                steps {
-                    echo "=======Pushing to amazon S3====="
-                    sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
-                
-                }
-            }
 
-            stage('Deploy') {
-                steps {
-                    sh "aws lambda update-function-code --function-name ${functionName} \
-                    --s3-bucket ${bucket} \
-                    --s3-key ${commitID()}.zip \
-                    --region ${region}"
-                
+                stage('Deploy') {
+                    steps {
+                        sh "aws lambda update-function-code --function-name ${functionName} \
+                        --s3-bucket ${bucket} \
+                        --s3-key ${commitID()}.zip \
+                        --region ${region}"
+                    
+                    }
                 }
-            }
 
+            }
         }
     }
 
