@@ -5,7 +5,10 @@ def region = 'us-east-2'
 pipeline {
 
     agent {
-        docker { image 'node:12-alpine' }
+        docker { 
+            image 'node:12-alpine'
+            args '-u root:sudo'
+            }
     }
 
     environment {
