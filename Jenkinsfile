@@ -53,7 +53,7 @@ pipeline {
             steps {
                     withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
                         echo "=======Pushing to amazon S3====="
-                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}/lambda"
+                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}/lambda/${GIT_COMMIT}.zip"
                     }
             }
         }
@@ -62,8 +62,8 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
                     sh "aws lambda update-function-code --function-name ${functionName} \
-                    --s3-bucket ${bucket}/lambda \
-                    --s3-key ${GIT_COMMIT}.zip \
+                    --s3-bucket ${bucket} \
+                    --s3-key /lambda/${GIT_COMMIT}.zip \
                     --region ${region}"
                 }
             }
