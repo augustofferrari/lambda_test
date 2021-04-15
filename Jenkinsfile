@@ -31,6 +31,7 @@ pipeline {
                 sh "npm install"
                 sh "ls -l"
                 sh "cp -R node_modules main/"
+                sh "apt-get install zip -y"
                 sh "zip ${GIT_COMMIT}.zip main"
                 echo "=======Zip file done====="
             
