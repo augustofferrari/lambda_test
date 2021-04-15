@@ -7,7 +7,7 @@ pipeline {
     agent {
         docker { 
             image 'node:12-alpine'
-            args '-u root:sudo'
+            args '-u root:root'
             }
     }
 
