@@ -10,6 +10,7 @@ pipeline {
 
     environment {
         HOME = '.'
+        GIT_COMMIT = env.GIT_COMMIT
     }
     triggers {
         githubPush()
@@ -30,7 +31,7 @@ pipeline {
                 sh "npm install"
                 sh "ls -l"
                 sh "cp -R node_modules main/"
-                sh "zip ${commitID()}.zip main"
+                sh "zip ${GIT_COMMIT}.zip main"
                 echo "=======Zip file done====="
             
             }
@@ -38,7 +39,7 @@ pipeline {
         stage('Push') {
             steps {
                 echo "=======Pushing to amazon S3====="
-                sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
+                sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}"
             
             }
         }
@@ -47,7 +48,7 @@ pipeline {
             steps {
                 sh "aws lambda update-function-code --function-name ${functionName} \
                 --s3-bucket ${bucket} \
-                --s3-key ${commitID()}.zip \
+                --s3-key ${GIT_COMMIT}.zip \
                 --region ${region}"
             
             }
