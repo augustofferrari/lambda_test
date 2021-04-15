@@ -3,6 +3,9 @@ def functionName = 'lambda-jenkins-test'
 def region = 'us-east-2'
 
 node('slaves'){
+    triggers {
+        githubPush()
+    }
     stage('Checkout'){
         checkout scm
     }
