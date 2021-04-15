@@ -28,7 +28,7 @@ pipeline {
                 
                 sh "npm install"
                 sh "ls -l"
-                sh "cp node_modules main/"
+                sh "cp -R node_modules main/"
                 sh "zip ${commitID()}.zip main"
                 echo "=======Zip file done====="
             
