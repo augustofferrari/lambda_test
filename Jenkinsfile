@@ -27,6 +27,7 @@ pipeline {
         stage('Example Build') {
             steps {
                 echo "========== ENV VARIABLES"
+                sh "USER root"
                 sh 'env'  
                 sh "npm install"
                 sh "ls -l"
