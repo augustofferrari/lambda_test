@@ -32,6 +32,7 @@ pipeline {
         }
         stage('Push') {
             steps {
+                echo "=======Pushing to amazon S3====="
                 sh "aws s3 cp ${commitID()}.zip s3://${bucket}"
             
             }
