@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         HOME = '.'
-        GIT_COMMIT = env.GIT_COMMIT
+        GIT_COMMIT = ${env.GIT_COMMIT}
     }
     triggers {
         githubPush()
