@@ -1,4 +1,4 @@
-def bucket = 'sbcleardbuckettest'
+def bucket = 'sbcleardbuckettest/lambda'
 def functionName = 'lambda-jenkins-test'
 def region = 'us-east-2'
 
@@ -61,18 +61,19 @@ pipeline {
             steps {
                     withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
                         echo "=======Pushing to amazon S3====="
-                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket} "
+                        sh "aws s3 cp ${GIT_COMMIT}.zip s3://${bucket}"
                     }
             }
         }
 
         stage('Deploy') {
             steps {
-                sh "aws lambda update-function-code --function-name ${functionName} \
-                --s3-bucket ${bucket} \
-                --s3-key ${GIT_COMMIT}.zip \
-                --region ${region}"
-            
+                withAWS(credentials: 'aws-sbcleard-lambda', region: 'us-east-2') {
+                    sh "aws lambda update-function-code --function-name ${functionName} \
+                    --s3-bucket ${bucket} \
+                    --s3-key ${GIT_COMMIT}.zip \
+                    --region ${region}"
+                }
             }
         }
 
