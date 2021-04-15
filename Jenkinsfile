@@ -25,7 +25,7 @@ pipeline {
                 sh 'cat /etc/*-release'
                 sh "apk update "
                 sh "apk add --update sudo"
-                echo "User $(whoami) running from $PWD with premissions: $(sudo -l)"
+               
                 sh "apk add zip"
 
             }
