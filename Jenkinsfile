@@ -21,12 +21,13 @@ pipeline {
         }
         stage('Example Build') {
             steps {
-                echo sh(returnStdout: true, script: 'env')
+                echo "ls -l"
+                sh "sudo npm cache clean --force "
                 sh "npm install"
                 sh "cp node_modules main/"
                 sh "zip ${commitID()}.zip main"
                 echo "=======Zip file done====="
-            
+                echo env
             }
         }
         stage('Push') {
