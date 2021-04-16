@@ -60,10 +60,11 @@ pipeline {
                 sh 'env'  
                 sh "npm install"
                 sh "ls -l"
+            
                 sh "cp -R node_modules main/"
                 //sh "apk add zip"
+                sh "cd main"
                 sh "zip -r ${GIT_COMMIT}.zip main/*"
-
                 echo "=======Zip file done====="
             
             }
