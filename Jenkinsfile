@@ -19,7 +19,7 @@ pipeline {
 
         script{
             echo "${GIT_BRANCH}"
-            if( "${GIT_BRANCH}" == "origin/develop"}){
+            if( "${GIT_BRANCH}" == "origin/develop"){
                 echo "========= INSIDE BRANCH DEVELOP ======="
                 MY_BRANCH = "my branch"
             }
