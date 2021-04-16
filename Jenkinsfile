@@ -64,7 +64,7 @@ pipeline {
                 sh "cp -R node_modules main/"
                 //sh "apk add zip"
                 sh "cd main"
-                sh "zip -r ${GIT_COMMIT}.zip main/*"
+                sh "zip -r ${GIT_COMMIT}.zip ."
                 echo "=======Zip file done====="
             
             }
@@ -89,6 +89,7 @@ pipeline {
                 }
                 sh "cd .."
                 echo "DOOOOONEEEEEEEEEE"
+                echo "Finish"
             }
         }
 
