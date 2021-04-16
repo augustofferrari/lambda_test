@@ -65,6 +65,7 @@ pipeline {
                 sh 'cd main'
                 sh "zip -r ../${GIT_COMMIT}.zip *"
                 sh 'cd ..'
+                sh 'ls -l'
                 echo "=======Zip file done====="
             
             }
