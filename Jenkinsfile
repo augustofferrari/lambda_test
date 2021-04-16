@@ -15,6 +15,11 @@ pipeline {
     environment {
         HOME = '.'
         GIT_COMMIT =  "${env.GIT_COMMIT}"
+
+        if(env.GIT_BRANCH == "origin/develop"){
+            echo "========= INSIDE BRANCH DEVELOP ======="
+            MY_BRANCH = "my branch"
+        }
     }
     triggers {
         githubPush()
@@ -24,6 +29,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                echo " ========${MY_BRANCH}======"
+
                 echo "=========== NODE VERSION ========"
                 sh 'node --version'
                 sh 'cat /etc/*-release'
