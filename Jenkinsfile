@@ -29,11 +29,15 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "${GIT_BRANCH}"
-                if( "${GIT_BRANCH}" == "origin/develop"){
+                script{
+                    if( "${GIT_BRANCH}" == "origin/develop"){
                     echo "========= INSIDE BRANCH DEVELOP ======="
                     MY_BRANCH = "my branch"
                 }    
 
+
+                }
+                
 
 
 
