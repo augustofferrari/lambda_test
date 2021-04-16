@@ -87,6 +87,8 @@ pipeline {
                     --s3-key lambda/${GIT_COMMIT}.zip \
                     --region ${region}"
                 }
+                sh "cd .."
+                echo "DOOOOONEEEEEEEEEE"
             }
         }
 
