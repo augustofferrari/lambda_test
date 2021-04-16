@@ -59,12 +59,14 @@ pipeline {
                 echo "========== ENV VARIABLES"
                 sh 'env'  
                 sh "npm install"
+                sh "rm *.zip" 
                 sh "ls -l"
-            
+
                 sh "cp -R node_modules main/"
                 //sh "apk add zip"
                 sh "cd main"
-                sh "zip -r ${GIT_COMMIT}.zip ."
+                sh "pwd"
+                sh "zip -r ${GIT_COMMIT}.zip *"
                 echo "=======Zip file done====="
             
             }
