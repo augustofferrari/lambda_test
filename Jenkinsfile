@@ -64,7 +64,8 @@ pipeline {
 
                 sh "cp -R node_modules main/"
                 //sh "apk add zip"
-                sh "cd /var/lib/jenkins/workspace/test_lambda/main"
+                workdir '/main'
+                //sh "cd /var/lib/jenkins/workspace/test_lambda/main"
                 sh "pwd"
                 sh "zip -r ${GIT_COMMIT}.zip *"
                 echo "=======Zip file done====="
