@@ -17,11 +17,7 @@ pipeline {
         GIT_COMMIT = "${env.GIT_COMMIT}"
         GIT_BRANCH = "${env.GIT_BRANCH}" 
 
-        echo "${GIT_BRANCH}"
-        if( "${GIT_BRANCH}" == "origin/develop"){
-            echo "========= INSIDE BRANCH DEVELOP ======="
-            MY_BRANCH = "my branch"
-        }
+        
         
     }
 
@@ -32,6 +28,15 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo "${GIT_BRANCH}"
+                if( "${GIT_BRANCH}" == "origin/develop"){
+                    echo "========= INSIDE BRANCH DEVELOP ======="
+                    MY_BRANCH = "my branch"
+                }    
+
+
+
+
                 checkout scm
                 echo " ========${MY_BRANCH}======"
 
