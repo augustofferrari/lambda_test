@@ -15,8 +15,12 @@ pipeline {
     environment {
         HOME = '.'
         GIT_COMMIT = "${env.GIT_COMMIT}"
-
-       
+        script{
+            if( "${env.GIT_BRANCH}" == "origin/develop" ){
+                echo "========= INSIDE BRANCH DEVELOP ======="
+                MY_BRANCH = "my branch"
+            }
+        }
     }
 
     triggers {
