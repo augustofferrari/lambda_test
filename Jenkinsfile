@@ -96,6 +96,7 @@ pipeline {
                     }
                     sh "rm *.zip" 
                 }
+                sh "ls -l"
                 echo "DOOOOONEEEEEEEEEE"
                 echo "Finish"
             }
