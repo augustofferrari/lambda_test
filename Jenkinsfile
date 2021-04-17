@@ -59,7 +59,6 @@ pipeline {
                 echo "========== ENV VARIABLES"
                 sh 'env'  
                 sh "npm install"
-                sh "rm *.zip" 
                 sh "ls -l"
 
                 sh "cp -R node_modules main/"
@@ -92,7 +91,8 @@ pipeline {
                     --s3-key lambda/${GIT_COMMIT}.zip \
                     --region ${region}"
                 }
-                sh "cd .."
+                sh "rm *.zip" 
+                
                 echo "DOOOOONEEEEEEEEEE"
                 echo "Finish"
             }
